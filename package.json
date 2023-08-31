@@ -17,11 +17,12 @@
   ],
   "browser": {},
   "scripts": {
+
     "build:bundle": "yarn run build:final",
     "build:notsourcemap": "GENERATE_SOURCEMAP=false yarn run build",
     "build:final": "BUILD_NO_CHUNKS=true yarn run build",
     "build:no-hash": "BUILD_NO_HASH=true BUILD_NO_CHUNKS=true yarn run build",
-    "build:module": "NODE_ENV=production BUILD_NO_HASH=true BUILD_NO_CHUNKS=true BUILD_MODULE=true yarn run build",
+    "build:module": "cross-env NODE_ENV=production BUILD_NO_HASH=true BUILD_NO_CHUNKS=true BUILD_MODULE=true yarn run build",
     "build:module-dev": "BUILD_NO_MINIMIZATION=true BUILD_NO_HASH=true BUILD_NO_CHUNKS=true BUILD_MODULE=true yarn run build",
     "prettier-styles": "prettier --write src/**/*.scss",
     "prettier": "prettier --write src/**/*.js",
@@ -30,7 +31,7 @@
     "start": "node dev-server.js",
     "test": "echo \"Error: no test specified\" && exit 0",
     "lint": "yarn run eslint ./src"
-   },
+  },
   "author": "Heartex, Inc.",
   "license": "ISC",
   "devDependencies": {
@@ -57,6 +58,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "chroma-js": "^2.1.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.0.2",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "date-fns": "^2.18.0",
