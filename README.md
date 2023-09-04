@@ -15,6 +15,9 @@ yarn install
 yarn run build:module
 ```
 
+Then copy the css and js folder in dm2\build\static to \label-studio\label_studio\frontend\dist\dm (skip if you havent edited the dependancy)
+
+
 ### Features
 
 Dank logos
