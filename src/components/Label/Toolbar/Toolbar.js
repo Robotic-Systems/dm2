@@ -71,7 +71,7 @@ export const Toolbar = observer(({ view, history, lsf, isLabelStream, hasInstruc
                 </Tooltip>
               )}
 
-              <Tooltip title="Settings">
+              <Tooltip title="IS THIS SETTINGS?">
                 <Button
                   look="dashed"
                   icon={<Icon icon={FaCog} />}

@@ -52,13 +52,26 @@ export const ActionsButton = injector(observer(({ store, size, hasSelected, ...r
       const dialog = Modal[dialogType] ?? Modal.confirm;
 
       dialog({
-        title: destructive ? "Destructive action." : "Confirm action.",
+        title: destructive ? "This is a destructive action, Are you sure?" : "Confirm action.",
         body: buildDialogContent(text, form, formRef),
         buttonLook: destructive ? "destructive" : "primary",
         onOk() {
-          const body = formRef.current?.assembleFormData({ asJSON: true });
+          // Gross nested dialogue, could be cleaned up by making some functions
+          if (!destructive){
+            const body = formRef.current?.assembleFormData({ asJSON: true });
 
-          store.invokeAction(action.id, { body });
+            store.invokeAction(action.id, { body });
+          }
+          dialog({
+            title: "Are you really sure?",
+            body: buildDialogContent(text, form, formRef),
+            buttonLook: "destructive",
+            onOk() {
+              const body = formRef.current?.assembleFormData({ asJSON: true });
+
+              store.invokeAction(action.id, { body });
+            },
+          });
         },
       });
     } else {

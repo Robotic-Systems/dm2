@@ -17,7 +17,6 @@
   ],
   "browser": {},
   "scripts": {
-
     "build:bundle": "yarn run build:final",
     "build:notsourcemap": "GENERATE_SOURCEMAP=false yarn run build",
     "build:final": "BUILD_NO_CHUNKS=true yarn run build",
@@ -124,5 +123,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "dependencies": {}
 }

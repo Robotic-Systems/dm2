@@ -53,7 +53,24 @@ const switchInjector = inject(({ store }) => {
   };
 });
 
+
+
 const ProjectSummary = summaryInjector((props) => {
+
+  //   const { project, fetchProject } = useContext(ProjectContext);
+  //   const [backends, setBackends] = useState([]);
+  //   const fetchBackends = useCallback(async () => {
+  //     const models = await api.callApi('mlBackends', {
+  //       params: {
+  //         project: project.id,
+  //       },
+  //     });
+  
+  //     if (models) setBackends(models);
+  //   }, [project, setBackends])
+  //   fetchBackends()
+  //   console.log(backends.entries());
+
   return (
     <Space size="large" style={{ paddingRight: "1em", color: "rgba(0,0,0,0.3)" }}>
       {props.cloudSync && (
@@ -65,6 +82,13 @@ const ProjectSummary = summaryInjector((props) => {
           <Spinner size="small" />
         </Space>
       )}
+     
+      <span>
+        {/* {backends.map(backend => (<BackendState backend={backend}/>))} */}
+        {/* This is my text */}
+          I made a change
+      </span>
+
       {isFF(FF_LOPS_12) && props.SDK?.type === 'labelops' ? (
         <span style={{ display: "flex", alignItems: "center", fontSize: 12 }}>
           <Space size="compact">
