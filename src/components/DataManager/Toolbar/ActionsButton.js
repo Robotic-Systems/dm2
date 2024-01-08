@@ -38,8 +38,30 @@ const buildDialogContent = (text, form, formRef) => {
   );
 };
 
+const buildDestructiveDialogContent = (text, form, formRef, deleteConfirmRef) => {
+  return (
+    <Block name="dialog-content">
+      <Elem name="text">{text}</Elem>
+      {form && (
+        <Elem name="form" style={{ paddingTop: 16 }}>
+          <Form.Builder
+            ref={formRef}
+            fields={form.toJSON()}
+            autosubmit={false}
+            withActions={false}
+          />
+        </Elem>
+      )}
+      <div style = {{ marginTop: '16px' }}>
+        <input type="text" ref={deleteConfirmRef} placeholder="Type 'DELETE' here" />    
+      </div>
+    </Block>
+  );
+};
+
 export const ActionsButton = injector(observer(({ store, size, hasSelected, ...rest }) => {
   const formRef = useRef();
+  const deleteConfirmRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const selectedCount = store.currentView.selectedCount;
   const actions = store.availableActions
@@ -50,28 +72,24 @@ export const ActionsButton = injector(observer(({ store, size, hasSelected, ...r
     if (action.dialog) {
       const { type: dialogType, text, form } = action.dialog;
       const dialog = Modal[dialogType] ?? Modal.confirm;
-
+      
       dialog({
-        title: destructive ? "This is a destructive action, Are you sure?" : "Confirm action.",
-        body: buildDialogContent(text, form, formRef),
+        title: destructive ? "This is a destructive action!" : "Confirm Action",
+        body: destructive ? buildDestructiveDialogContent(text, form, formRef, deleteConfirmRef) : buildDialogContent(text, form, formRef),
         buttonLook: destructive ? "destructive" : "primary",
         onOk() {
           // Gross nested dialogue, could be cleaned up by making some functions
-          if (!destructive){
-            const body = formRef.current?.assembleFormData({ asJSON: true });
+          if (destructive){
+            const deleteConfirmVal = deleteConfirmRef.current.value;
 
-            store.invokeAction(action.id, { body });
+            if (deleteConfirmVal !== "DELETE"){
+              alert("Deletion not confimed correctly, no changes will be made");
+              return;
+            }
           }
-          dialog({
-            title: "Are you really sure?",
-            body: buildDialogContent(text, form, formRef),
-            buttonLook: "destructive",
-            onOk() {
-              const body = formRef.current?.assembleFormData({ asJSON: true });
+          const body = formRef.current?.assembleFormData({ asJSON: true });
 
-              store.invokeAction(action.id, { body });
-            },
-          });
+          store.invokeAction(action.id, { body });
         },
       });
     } else {

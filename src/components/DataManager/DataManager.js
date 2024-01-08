@@ -83,12 +83,6 @@ const ProjectSummary = summaryInjector((props) => {
         </Space>
       )}
      
-      <span>
-        {/* {backends.map(backend => (<BackendState backend={backend}/>))} */}
-        {/* This is my text */}
-          I made a change
-      </span>
-
       {isFF(FF_LOPS_12) && props.SDK?.type === 'labelops' ? (
         <span style={{ display: "flex", alignItems: "center", fontSize: 12 }}>
           <Space size="compact">
