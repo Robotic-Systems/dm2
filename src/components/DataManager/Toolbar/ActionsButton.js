@@ -89,7 +89,11 @@ export const ActionsButton = injector(observer(({ store, size, hasSelected, ...r
           }
           const body = formRef.current?.assembleFormData({ asJSON: true });
 
-          store.invokeAction(action.id, { body });
+          store.invokeAction(action.id, { body }).then(result => {
+            if (result.success === false) {
+              alert(result.detail);
+            }
+          });
         },
       });
     } else {
