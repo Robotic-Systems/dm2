@@ -610,6 +610,9 @@ export class LSFWrapper {
         response = { ok: true };
       }
     } else {
+      if (annotation.draftId) {
+        response = await this.deleteDraft(annotation.draftId);
+      }
       response = await this.withinLoadingState(async () => {
         return this.datamanager.apiCall("deleteAnnotation", {
           taskID: task.id,
